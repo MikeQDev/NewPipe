@@ -1399,6 +1399,7 @@ public final class Player implements PlaybackListener, Listener {
                 break;
             case ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE:
             case ERROR_CODE_IO_BAD_HTTP_STATUS:
+                throw new Error("Test1234");
             case ERROR_CODE_IO_FILE_NOT_FOUND:
             case ERROR_CODE_IO_NO_PERMISSION:
             case ERROR_CODE_IO_CLEARTEXT_NOT_PERMITTED:
