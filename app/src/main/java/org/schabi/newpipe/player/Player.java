@@ -1399,7 +1399,7 @@ public final class Player implements PlaybackListener, Listener {
                 break;
             case ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE:
             case ERROR_CODE_IO_BAD_HTTP_STATUS:
-                 if (badHttpStatusRetry < 3) {
+                 /*if (badHttpStatusRetry < 3) {
                     badHttpStatusRetry += 1;
                     isCatchableException = true;
                     // Clears metadata cache and then reloads playback
@@ -1408,7 +1408,7 @@ public final class Player implements PlaybackListener, Listener {
                     reloadPlayQueueManager();
                 } else {
                     isCatchableException = false;
-                }
+                }*/
                 Error myE = new Error("failure to skkrt"+badHttpStatusRetry);
                 createErrorNotification(error);
                 break;
