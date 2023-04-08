@@ -250,7 +250,7 @@ public final class Player implements PlaybackListener, Listener {
     // Constructor
     //////////////////////////////////////////////////////////////////////////*/
     //region Constructor
-
+    private int badHttpStatusRetry = 0;
     public Player(@NonNull final PlayerService service) {
         this.service = service;
         context = service;
@@ -1399,7 +1399,19 @@ public final class Player implements PlaybackListener, Listener {
                 break;
             case ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE:
             case ERROR_CODE_IO_BAD_HTTP_STATUS:
-                throw new Error("Test123456");
+                 if (badHttpStatusRetry < 3) {
+                    badHttpStatusRetry += 1;
+                    isCatchableException = true;
+                    // Clears metadata cache and then reloads playback
+                    InfoCache.getInstance().clearCache();
+                    setRecovery();
+                    reloadPlayQueueManager();
+                } else {
+                    isCatchableException = false;
+                }
+                Error myE = new Error("failure to skkrt"+badHttpStatusRetry);
+                createErrorNotification(error);
+                break;
             case ERROR_CODE_IO_FILE_NOT_FOUND:
             case ERROR_CODE_IO_NO_PERMISSION:
             case ERROR_CODE_IO_CLEARTEXT_NOT_PERMITTED:
